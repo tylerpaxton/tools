@@ -1,0 +1,38 @@
+Name: Anthropic - Claude Max (OAuth)
+Description: Model Provider using Claude Max subscription via OAuth proxy
+Model Provider: true
+Credential: ../placeholder-credential as claude-max-oauth-model-provider with OBOT_GENERIC_OPENAI_MODEL_PROVIDER_BASE_URL;OBOT_GENERIC_OPENAI_MODEL_PROVIDER_API_KEY as env_vars
+Metadata: noUserAuth: claude-max-oauth-model-provider
+
+#\!sys.daemon ${GPTSCRIPT_TOOL_DIR}/bin/gptscript-go-tool
+
+---
+\!metadata:Anthropic - Claude Max (OAuth):providerMeta
+{
+    "icon": "/admin/assets/anthropic_icon.svg",
+    "iconDark": "/admin/assets/anthropic_icon.svg",
+    "link": "https://www.anthropic.com",
+    "description": "Use your [Claude Max](https://www.anthropic.com) subscription for AI inference without consuming API credits. Requires the Claude OAuth proxy running in your cluster.",
+    "envVars": [
+        {
+            "name": "OBOT_GENERIC_OPENAI_MODEL_PROVIDER_BASE_URL",
+            "friendlyName": "Proxy Base URL",
+            "description": "Base URL for the Claude OAuth proxy, e.g. http://claude-proxy.obot.svc.cluster.local/v1",
+            "sensitive": false
+        }
+    ],
+    "optionalEnvVars": [
+        {
+            "name": "OBOT_GENERIC_OPENAI_MODEL_PROVIDER_API_KEY",
+            "friendlyName": "API Key",
+            "description": "Not required for the Claude OAuth proxy.",
+            "sensitive": true
+        }
+    ]
+}
+
+---
+Name: validate
+Description: Validate the Claude Max OAuth proxy configuration
+
+#\!${GPTSCRIPT_TOOL_DIR}/bin/gptscript-go-tool validate
